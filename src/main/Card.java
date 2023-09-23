@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -9,7 +10,7 @@ public class Card {
 	String suit;
 	int rank;
 	String rankName;
-	BufferedImage icon;
+	Image icon;
 	
 	public Card(int id) {
 		rank = id % 13; // 0 = Ace, 1 = Two, etc.
@@ -81,7 +82,11 @@ public class Card {
 //			}
 			e.printStackTrace();
 		}
-		icon = image;
+		int scaledWidth = (int) (image.getWidth(null) * 0.1);
+		int scaledHeight = (int) (image.getHeight(null) * 0.1);
+		
+		Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_DEFAULT);
+		icon = scaledImage;
 		
 	}
 	
