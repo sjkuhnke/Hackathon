@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -22,31 +23,61 @@ public class Panel extends JPanel {
 	private Image img;
 	public Player p;
 	public ArrayList<Card> deck;
+	JLabel card1, card2;
+	JPanel communityPanel;
+	JLabel[] communityDisplay;
+	Card[] community;
+	
 
 	public Panel(Image img, Player p) {
+		this.p = p;
+		
 		this.img = img;
 		setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 		setLayout(null);
 		
-		JLabel card1 = new JLabel();
+		card1 = new JLabel();
 		card1.setIcon(new ImageIcon(p.getCard1().icon));
 		card1.setBounds(400, 535, 200, 200);
 		add(card1);
 		
 		// card 2 TODO
+		card2 = new JLabel();
+		card2.setIcon(new ImageIcon(p.getCard2().icon));
+		card2.setBounds(500, 535, 200, 200);
+		add(card2);
 		
 		// Initialize deck (put in method?)
+		deck = new ArrayList<>();
 		for (int i = 0; i < 52; i++) {
 			deck.add(new Card(i));
 		}
 		
 		Player lastDeal = p; // Make blind
-		while (p.getCard2().id == -1) {
+		while (lastDeal.getCard2().id == -1) {
 			//Player current = lastDeal.next;
 			if (p.getCard1().id == -1) p.setCard1(dealCard());
 			if (p.getCard2().id == -1) p.setCard2(dealCard());
 			// current = current.next
 		}
+		updateCards();
+		
+		communityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		communityDisplay = new JLabel[5];
+		community = new Card[5];
+		for (int i = 0; i < 5; i++) {
+			JLabel cardLabel = communityDisplay[i];
+			Card card = community[i];
+			card = dealCard();
+			cardLabel = new JLabel();
+			cardLabel.setIcon(new ImageIcon(card.icon));
+			
+			communityPanel.add(cardLabel);
+			//cardLabel.setVisible(false);
+		}
+		
+		communityPanel.setBounds(100, 100, 1000, 200);
+		add(communityPanel);
 		
 		addMouseListener(new MouseAdapter() {
             @Override
@@ -61,6 +92,11 @@ public class Panel extends JPanel {
         });
 	}
 	
+	private void updateCards() {
+		card1.setIcon(new ImageIcon(p.getCard1().icon));
+		card2.setIcon(new ImageIcon(p.getCard2().icon));
+	}
+
 	private Card dealCard() {
 		if (deck.size() == 0) throw new IndexOutOfBoundsException("No cards left in deck");
 		Random random = new Random();
