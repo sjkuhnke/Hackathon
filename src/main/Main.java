@@ -3,7 +3,8 @@ package main;
 import javax.swing.*;
 
 class Main {
+	Panel table = new Panel();
 	public static void main(String[] args) {
-		Panel gamePanel = new Panel();
+		System.out.println("fuck off");
 	}
 }
