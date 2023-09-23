@@ -136,7 +136,7 @@ public class Panel extends JPanel {
 			scores.put(hand, getHandValue(hand));
 		}
 		
-		System.out.print(Collections.max(scores.values()));
+		System.out.print(scoreToString(Collections.max(scores.values())));
 		
 		return result;
 	}
