@@ -13,7 +13,21 @@ class Main {
 		
 		Panel gamePanel = new Panel();
 		
+		String[] options = {"New Game", "Continue"};
+
+        int choice = JOptionPane.showOptionDialog(
+            null, 
+            "Select an option:", 
+            "Game Options", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            options, 
+            options[0]
+        );
+        
 		window.add(gamePanel);
+		gamePanel.add(new JLabel(choice + ""));
 		window.pack();
 		
 		window.setLocationRelativeTo(null);
