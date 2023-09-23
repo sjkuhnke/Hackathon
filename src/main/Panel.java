@@ -1,8 +1,8 @@
 package main;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public class Panel extends JFrame {
+public class Panel extends JPanel {
 
 	/**
 	 * 
