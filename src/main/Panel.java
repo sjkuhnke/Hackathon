@@ -211,7 +211,8 @@ public class Panel extends JPanel {
 	    }
 	    // Check for straight
 	    else if (isStraight) {
-	        return 5;
+	    	System.out.println(rankList);
+	    	return 5;
 	    }
 	    // Check for trips
 	    else if (maxRankCount == 3) {
