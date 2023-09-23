@@ -25,7 +25,7 @@ class Main {
         );
         
         Player p = choiceHandler(choice);
-        Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p);
+        Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p, 2);
         
 		window.add(gamePanel);
 		gamePanel.add(new JLabel(choice + ""));

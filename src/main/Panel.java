@@ -32,19 +32,24 @@ public class Panel extends JPanel {
 	Card[] community;
 	
 
-	public Panel(Image img, Player p) {
+	public Panel(Image img, Player p, int players) {
 		this.p = p;
 		
 		this.img = img;
 		setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 		setLayout(null);
 		
+		int[] xPositions = new int[] {};
+		int[] yPositions = new int[] {};
+		for (int i = 0; i <= players; i++) {
+			
+		}
+		
 		card1 = new JLabel();
 		card1.setIcon(new ImageIcon(p.getCard1().icon));
 		card1.setBounds(400, 535, 200, 200);
 		add(card1);
 		
-		// card 2 TODO
 		card2 = new JLabel();
 		card2.setIcon(new ImageIcon(p.getCard2().icon));
 		card2.setBounds(500, 535, 200, 200);
@@ -91,17 +96,17 @@ public class Panel extends JPanel {
 		
 		getBestHand(yourCards);
 		
-//		addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                // Get the coordinates of the mouse click
-//                int x = e.getX();
-//                int y = e.getY();
-//                
-//                // Print the coordinates
-//                System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
-//            }
-//        });
+		addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Get the coordinates of the mouse click
+                int x = e.getX();
+                int y = e.getY();
+                
+                // Print the coordinates
+                System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
+            }
+        });
 	}
 	
 	private void updateCards() {
