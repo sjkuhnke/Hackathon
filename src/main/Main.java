@@ -6,8 +6,11 @@ class Main {
 	Panel table = new Panel();
 	
 	public static void choiceHandler(int choice) {
-		if (choice == 1) {
-			//
+		if (choice == JOptionPane.YES_OPTION) {
+			//create a new game
+		}
+		else if (choice == JOptionPane.NO_OPTION) {
+			//load an existing game
 		}
     }
 	
