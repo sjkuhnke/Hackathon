@@ -39,23 +39,23 @@ public class Card {
 			case 0:
 				return "Ace";
 			case 1:
-				return "Two";
+				return "2";
 			case 2:
-				return "Three";
+				return "3";
 			case 3:
-				return "Four";
+				return "4";
 			case 4:
-				return "Five";
+				return "5";
 			case 5:
-				return "Six";
+				return "6";
 			case 6:
-				return "Seven";
+				return "7";
 			case 7:
-				return "Eight";
+				return "8";
 			case 8:
-				return "Nine";
+				return "9";
 			case 9:
-				return "Ten";
+				return "10";
 			case 10:
 				return "Jack";
 			case 11:
@@ -70,7 +70,7 @@ public class Card {
 	private void setIcon() {
 		BufferedImage image = null;
 		
-		String imageName = rankName + "_of_" + suit;
+		String imageName = rankName.toLowerCase() + "_of_" + suit.toLowerCase();
 		
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/cards/" + imageName + ".png"));
@@ -80,6 +80,7 @@ public class Card {
 //			} catch (IOException e1) {
 //				e1.printStackTrace();
 //			}
+			System.out.println(imageName);
 			e.printStackTrace();
 		}
 		int scaledWidth = (int) (image.getWidth(null) * 0.1);
@@ -88,6 +89,10 @@ public class Card {
 		Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_DEFAULT);
 		icon = scaledImage;
 		
+	}
+	
+	public String toString() {
+		return rankName.charAt(0) + "";
 	}
 	
 }
