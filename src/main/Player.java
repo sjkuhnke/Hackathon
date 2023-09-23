@@ -28,5 +28,16 @@ public class Player {
 	public Card getCard2() {
 		return card2;
 	}
-	
+	public String setName(String newName) {
+		return this.name = newName;
+	}
+	public double setWallet(double newAmount) {
+		return this.wallet = newAmount;
+	}
+	public Card setCard1(Card card) {
+		return this.card1 = card;
+	}
+	public Card setCard2(Card card) {
+		return this.card2 = card;
+	}
 }
