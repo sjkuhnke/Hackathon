@@ -38,6 +38,6 @@ public class Player {
 		return this.card1 = card;
 	}
 	public Card setCard2(Card card) {
-		return this.card2 = card;
+		return this.card2  = card;
 	}
 }
