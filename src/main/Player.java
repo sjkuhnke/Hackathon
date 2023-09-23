@@ -9,8 +9,8 @@ public class Player {
 	private Card card2;
 	
 	public Player() {
-		card1 = new Card(-1);
-		card2 = new Card(-1);
+		card1 = new Card(0);
+		card2 = new Card(13);
 		
 		name = ""; // TODO: prompt user if null
 		wallet = 0.0;

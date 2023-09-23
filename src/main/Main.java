@@ -4,13 +4,17 @@ import javax.swing.*;
 
 class Main {
 	
-	public static void choiceHandler(Panel panel, int choice) {
+	public static Player choiceHandler(int choice) {
 		if (choice == JOptionPane.YES_OPTION) {
-			panel.p = new Player();
+			return new Player();
 			//create a new game
 		}
 		else if (choice == JOptionPane.NO_OPTION) {
 			//load an existing game
+			return new Player();
+		}
+		else {
+			return new Player();
 		}
     }
 	
@@ -21,8 +25,6 @@ class Main {
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Poker Game");
-		
-		Panel gamePanel = new Panel(new ImageIcon("background.png").getImage());
 		
 		String[] options = {"New Game", "Continue"};
 
@@ -37,6 +39,8 @@ class Main {
             options[0]
         );
         
+        Player p = choiceHandler(choice);
+        Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p);
         
 		window.add(gamePanel);
 		gamePanel.add(new JLabel(choice + ""));
