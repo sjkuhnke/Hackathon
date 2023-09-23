@@ -5,12 +5,12 @@ public class Player {
 	private double wallet;
 	private String name;
 	
-	private int card1;
-	private int card2;
+	private Card card1;
+	private Card card2;
 	
 	public Player() {
-		card1 = -1;
-		card2 = -1;
+		card1 = new Card(-1);
+		card2 = new Card(-1);
 		
 		name = ""; // TODO: prompt user if null
 		wallet = 0.0;

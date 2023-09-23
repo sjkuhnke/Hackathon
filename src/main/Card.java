@@ -23,7 +23,7 @@ public class Card {
 		case 3:
 			return "Spades";
 		default:
-			return "ERROR";
+			return "Empty";
 		}
 	}
 		
@@ -56,7 +56,7 @@ public class Card {
 			case 12:
 				return "King";
 			default:
-				return "ERROR";
+				return "Empty";
 		}
 	}
 	
