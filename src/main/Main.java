@@ -4,6 +4,13 @@ import javax.swing.*;
 
 class Main {
 	Panel table = new Panel();
+	
+	public static void choiceHandler(int choice) {
+		if (choice == 1) {
+			//
+		}
+    }
+	
 	public static void main(String[] args) {
 
 		JFrame window = new JFrame();
@@ -25,6 +32,7 @@ class Main {
             options, 
             options[0]
         );
+        
         
 		window.add(gamePanel);
 		gamePanel.add(new JLabel(choice + ""));
