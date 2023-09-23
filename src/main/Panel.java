@@ -15,6 +15,7 @@ public class Panel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private Image img;
+	public Player p;
 	
 	public Panel(String img) {
 		this(new ImageIcon(img).getImage());

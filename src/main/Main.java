@@ -4,8 +4,9 @@ import javax.swing.*;
 
 class Main {
 	
-	public static void choiceHandler(int choice) {
+	public static void choiceHandler(Panel panel, int choice) {
 		if (choice == JOptionPane.YES_OPTION) {
+			panel.p = new Player();
 			//create a new game
 		}
 		else if (choice == JOptionPane.NO_OPTION) {
