@@ -3,8 +3,10 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -19,6 +21,7 @@ public class Panel extends JPanel {
 
 	private Image img;
 	public Player p;
+	public ArrayList<Card> deck;
 
 	public Panel(Image img, Player p) {
 		this.img = img;
@@ -27,12 +30,46 @@ public class Panel extends JPanel {
 		
 		JLabel card1 = new JLabel();
 		card1.setIcon(new ImageIcon(p.getCard1().icon));
-		card1.setBounds(100, 100, 200, 200);
+		card1.setBounds(400, 535, 200, 200);
 		add(card1);
 		
-		getBestHand(new Card[] {new Card(6), new Card(0), new Card(5), new Card(1), new Card(7), new Card(8), new Card(10)});
+		// card 2 TODO
+		
+		// Initialize deck (put in method?)
+		for (int i = 0; i < 52; i++) {
+			deck.add(new Card(i));
+		}
+		
+		Player lastDeal = p; // Make blind
+		while (p.getCard2().id == -1) {
+			//Player current = lastDeal.next;
+			if (p.getCard1().id == -1) p.setCard1(dealCard());
+			if (p.getCard2().id == -1) p.setCard2(dealCard());
+			// current = current.next
+		}
+		
+		addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                // Get the coordinates of the mouse click
+                int x = e.getX();
+                int y = e.getY();
+                
+                // Print the coordinates
+                System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
+            }
+        });
 	}
 	
+	private Card dealCard() {
+		if (deck.size() == 0) throw new IndexOutOfBoundsException("No cards left in deck");
+		Random random = new Random();
+		int index = random.nextInt(deck.size());
+		Card result = deck.get(index);
+		deck.remove(result);
+		return result;
+	}
+
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, null);
 	}

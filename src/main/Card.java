@@ -7,15 +7,17 @@ import javax.imageio.ImageIO;
 
 public class Card {
 
+	int id;
 	String suit;
 	int rank;
 	String rankName;
 	Image icon;
 	
 	public Card(int id) {
-		rank = id % 13; // 0 = Ace, 1 = Two, etc.
-		suit = getSuit(id % 4); // 0 = Clubs, 1 = Diamonds, 2 = Hearts, 3 = Spades
-		rankName = getRankName(rank);
+		this.id = id;
+		this.rank = id % 13; // 0 = Two, 1 = Three, etc.
+		this.suit = getSuit(id % 4); // 0 = Clubs, 1 = Diamonds, 2 = Hearts, 3 = Spades
+		this.rankName = getRankName(rank);
 		setIcon();
 	}
 
@@ -37,31 +39,31 @@ public class Card {
 	private String getRankName(int rank) {
 		switch (rank) {
 			case 0:
-				return "Ace";
-			case 1:
 				return "2";
-			case 2:
+			case 1:
 				return "3";
-			case 3:
+			case 2:
 				return "4";
-			case 4:
+			case 3:
 				return "5";
-			case 5:
+			case 4:
 				return "6";
-			case 6:
+			case 5:
 				return "7";
-			case 7:
+			case 6:
 				return "8";
-			case 8:
+			case 7:
 				return "9";
-			case 9:
+			case 8:
 				return "10";
-			case 10:
+			case 9:
 				return "Jack";
-			case 11:
+			case 10:
 				return "Queen";
-			case 12:
+			case 11:
 				return "King";
+			case 12:
+				return "Ace";
 			default:
 				return "Blank";
 		}
@@ -83,8 +85,8 @@ public class Card {
 			System.out.println(imageName);
 			e.printStackTrace();
 		}
-		int scaledWidth = (int) (image.getWidth(null) * 0.1);
-		int scaledHeight = (int) (image.getHeight(null) * 0.1);
+		int scaledWidth = (int) (image.getWidth(null) * 0.15);
+		int scaledHeight = (int) (image.getHeight(null) * 0.15);
 		
 		Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_DEFAULT);
 		icon = scaledImage;

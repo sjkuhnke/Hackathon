@@ -34,10 +34,10 @@ public class Player {
 	public double setWallet(double newAmount) {
 		return this.wallet = newAmount;
 	}
-	public void setCard1(int i) { 
-		card1 = new Card(i);
+	public void setCard1(Card c) { 
+		card1 = c;
 	}
-	public void setCard2(int i) {
-		card2 = new Card(i);
+	public void setCard2(Card c) {
+		card2 = c;
 	}
 }
