@@ -233,5 +233,27 @@ public class Panel extends JPanel {
 	    }
 	    return 1;
 	}
+	String scoreToString(int score) {
+		switch (score) {
+			case 9:
+				return "Straight Flush";
+			case 8:
+				return "Quads";
+			case 7:
+				return "Full House";
+			case 6:
+				return "Flush";
+			case 5:
+				return "Straight";
+			case 4:
+				return "Trips";
+			case 3:
+				return "Two Pair";
+			case 2:
+				return "Pair";
+			default:
+				return "High Card";
+			}
+		}
 
 }
