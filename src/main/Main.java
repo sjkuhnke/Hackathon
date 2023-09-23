@@ -3,7 +3,6 @@ package main;
 import javax.swing.*;
 
 class Main {
-	Panel table = new Panel();
 	
 	public static void choiceHandler(int choice) {
 		if (choice == JOptionPane.YES_OPTION) {
@@ -14,6 +13,7 @@ class Main {
 		}
     }
 	
+
 	public static void main(String[] args) {
 
 		JFrame window = new JFrame();
@@ -21,7 +21,7 @@ class Main {
 		window.setResizable(false);
 		window.setTitle("Poker Game");
 		
-		Panel gamePanel = new Panel();
+		Panel gamePanel = new Panel(new ImageIcon("background.png").getImage());
 		
 		String[] options = {"New Game", "Continue"};
 
