@@ -184,7 +184,6 @@ public class Panel extends JPanel {
 	    Collections.sort(rankList);
 
 	    if (rankList.size() == 5) {
-		    System.out.println(rankList);
 		    for (int i = 0; i < rankList.size() - 1; i++) {
 		        if (rankList.get(i + 1) != rankList.get(i) + 1) {
 		            isStraight = false;
