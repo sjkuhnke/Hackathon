@@ -22,11 +22,11 @@ public class Player {
 	public double getWallet() {
 		return wallet;
 	}
-	public int getCard1(){
-		return this.card1;
+	public Card getCard1(){
+		return card1;
 	}
-	public int getCard2() {
-		return this.card2;
+	public Card getCard2() {
+		return card2;
 	}
 	
 }
