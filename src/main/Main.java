@@ -37,15 +37,15 @@ class Main {
 	
 	public static Player choiceHandler(int choice) {
 		if (choice == JOptionPane.YES_OPTION) {
-			return new Player();
+			return new Player(false);
 			//create a new game
 		}
 		else if (choice == JOptionPane.NO_OPTION) {
 			//load an existing game
-			return new Player();
+			return new Player(false);
 		}
 		else {
-			return new Player();
+			return new Player(false);
 		}
     }
 }

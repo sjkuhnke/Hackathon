@@ -2,18 +2,24 @@ package main;
 
 public class Player {	
 	
-	private double wallet;
+	private int wallet;
 	private String name;
 	
 	private Card card1;
 	private Card card2;
 	
-	public Player() {
+	public Player next;
+	public boolean npc;
+	public boolean in;
+	
+	public Player(boolean npc) {
 		card1 = new Card(-1);
 		card2 = new Card(-1);
 		
 		name = ""; // TODO: prompt user if null
-		wallet = 0.0;
+		wallet = 100;
+		
+		this.npc = npc;
 	}
 	
 	public String getName() {
@@ -31,8 +37,8 @@ public class Player {
 	public String setName(String newName) {
 		return this.name = newName;
 	}
-	public double setWallet(double newAmount) {
-		return this.wallet = newAmount;
+	public void setWallet(int newAmount) {
+		this.wallet = newAmount;
 	}
 	public void setCard1(Card c) { 
 		card1 = c;
