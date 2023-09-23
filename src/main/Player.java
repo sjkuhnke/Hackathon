@@ -19,6 +19,14 @@ public class Player {
 	public String getName() {
 		return name;
 	}
+	public double getWallet() {
+		return wallet;
+	}
+	public int getCard1(){
+		return this.card1;
+	}
+	public int getCard2() {
+		return this.card2;
+	}
 	
-
 }
