@@ -3,6 +3,7 @@ package main;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,5 +32,16 @@ public class Panel extends JPanel {
 	
 	public void paintComponent(Graphics g) {
 		g.drawImage(img, 0, 0, null);
+	}
+	
+	public Card[] getBestHand(Card[] cards) {
+		Card[] result = new Card[5];
+		List<List<Card>> possibleHands = generateCombinations(cards);
+		return result;
+	}
+
+	private List<List<Card>> generateCombinations(Card[] cards) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

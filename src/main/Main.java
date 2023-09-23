@@ -3,21 +3,6 @@ package main;
 import javax.swing.*;
 
 class Main {
-	
-	public static Player choiceHandler(int choice) {
-		if (choice == JOptionPane.YES_OPTION) {
-			return new Player();
-			//create a new game
-		}
-		else if (choice == JOptionPane.NO_OPTION) {
-			//load an existing game
-			return new Player();
-		}
-		else {
-			return new Player();
-		}
-    }
-	
 
 	public static void main(String[] args) {
 
@@ -49,4 +34,18 @@ class Main {
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}
+	
+	public static Player choiceHandler(int choice) {
+		if (choice == JOptionPane.YES_OPTION) {
+			return new Player();
+			//create a new game
+		}
+		else if (choice == JOptionPane.NO_OPTION) {
+			//load an existing game
+			return new Player();
+		}
+		else {
+			return new Player();
+		}
+    }
 }
