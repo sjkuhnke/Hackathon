@@ -183,11 +183,17 @@ public class Panel extends JPanel {
 	    ArrayList<Integer> rankList = new ArrayList<Integer>(rankCount.keySet());
 	    Collections.sort(rankList);
 
-	    for (int i = 0; i < rankList.size() - 1; i++) {
-	        if (rankList.get(i + 1) != rankList.get(i) + 1) {
-	            isStraight = false;
-	            break;
-	        }
+	    if (rankList.size() == 5) {
+		    System.out.println(rankList);
+		    for (int i = 0; i < rankList.size() - 1; i++) {
+		        if (rankList.get(i + 1) != rankList.get(i) + 1) {
+		            isStraight = false;
+		            break;
+		        }
+		    }
+	    }
+	    else {
+	    	isStraight = false;
 	    }
 
 	    int maxRankCount = Collections.max(rankCount.values());
