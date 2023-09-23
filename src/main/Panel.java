@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -30,19 +31,33 @@ public class Panel extends JPanel {
 	JPanel communityPanel;
 	JLabel[] communityDisplay;
 	Card[] community;
-	
+	JLabel[] playerWallets;
+	Player[] players;
 
-	public Panel(Image img, Player p, int players) {
+	public Panel(Image img, Player p, int playerCount) {
 		this.p = p;
 		
 		this.img = img;
 		setPreferredSize(new Dimension(img.getWidth(null), img.getHeight(null)));
 		setLayout(null);
 		
-		int[] xPositions = new int[] {};
-		int[] yPositions = new int[] {};
-		for (int i = 0; i <= players; i++) {
+		playerWallets = new JLabel[playerCount + 1];
+		players = new Player[playerCount + 1];
+		int[] xPositions = new int[] {447, 195, 182, 658, 696};
+		int[] yPositions = new int[] {484, 446, 307, 263, 460};
+		for (int i = 0; i <= playerCount; i++) {
+			if (i == 0) {
+				players[i] = p;
+			} else {
+				players[i] = new Player(true);
+				players[i - 1].next = players[i];
+			}
+			playerWallets[i] = new JLabel("$" + players[i].getWallet());
+			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
+			playerWallets[i].setOpaque(true);
+			playerWallets[i].setBackground(Color.WHITE);
 			
+			add(playerWallets[i]);
 		}
 		
 		card1 = new JLabel();
@@ -84,7 +99,7 @@ public class Panel extends JPanel {
 			//cardLabel.setVisible(false);
 		}
 		
-		communityPanel.setBounds(100, 100, 1000, 200);
+		communityPanel.setBounds(100, 100, 500, 125);
 		add(communityPanel);
 		
 		ArrayList<Card> yourCards = new ArrayList<>();
