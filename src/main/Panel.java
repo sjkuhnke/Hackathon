@@ -34,7 +34,7 @@ public class Panel extends JPanel {
 	Card[] community;
 	JLabel[] playerWallets;
 	Player[] players;
-	JLabel[] playerTurnIndicators;
+	JRadioButton[] dealerButtons;
 
 	public Panel(Image img, Player p, int playerCount) {
 		this.p = p;
@@ -44,7 +44,7 @@ public class Panel extends JPanel {
 		setLayout(null);
 		
 		playerWallets = new JLabel[playerCount + 1];
-		playerTurnIndicators = new JLabel[playerCount + 1];
+		dealerButtons = new JRadioButton[playerCount + 1];
 		players = new Player[playerCount + 1];
 		int[] xPositions = new int[] {465, 195, 195, 724, 724};
 		int[] yPositions = new int[] {484, 446, 280, 280, 446};
@@ -64,9 +64,13 @@ public class Panel extends JPanel {
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
 			
-			playerTurnIndicators[i].add(new JRadioButton());
-			playerTurnIndicators[i].setBounds(xPositions[i], yPositions[i], 50, 30);
-			
+			dealerButtons[i] = new JRadioButton();
+			dealerButtons[i].setEnabled(true);
+			dealerButtons[i].setSelected(true);
+			dealerButtons[i].setBounds(xPositions[i], yPositions[i] + 30, 22, 22);
+			dealerButtons[i].setOpaque(false);
+			dealerButtons[i].setVisible(false);
+			add(dealerButtons[i]);
 			add(playerWallets[i]);
 		}
 		
@@ -92,6 +96,10 @@ public class Panel extends JPanel {
 		}
 		
 		Player dealer = current;
+		
+		int dealerIndex = getIndex(dealer);
+		dealerButtons[dealerIndex].setVisible(true);
+		
 		Player currentDeal = dealer.next;
 		while (dealer.getCard2().id == -1) {
 			if (currentDeal.getCard1().id == -1) {
@@ -140,6 +148,18 @@ public class Panel extends JPanel {
 //		}
 	}
 	
+	private int getIndex(Player dealer) {
+		Player current = p;
+		int di = 0;
+		do {
+			if (current == dealer) return di;
+			di++;
+			current = current.next;
+		}
+		while(current != p);
+		return -1;
+	}
+
 	private ArrayList<Card> getYourCards(Player current) {
 		ArrayList<Card> yourCards = new ArrayList<>();
 		for (Card card : community) {
