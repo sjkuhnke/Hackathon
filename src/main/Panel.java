@@ -7,12 +7,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -66,13 +68,13 @@ public class Panel extends JPanel {
 			
 			dealerButtons[i] = new JLabel("");
 			dealerButtons[i].setEnabled(true);
-			dealerButtons[i].setIcon(getIcon("/essentials/dealer.png"));
-			dealerButtons[i].setBounds(xPositions[i], yPositions[i] + 30, 22, 22);
+			dealerButtons[i].setIcon(new ImageIcon("dealer.png"));
+			dealerButtons[i].setBounds(xPositions[i], yPositions[i] + 30, 44, 44);
 			dealerButtons[i].setOpaque(false);
 			dealerButtons[i].setVisible(false);
 			
-			add(dealerButtons[i]);
 			add(playerWallets[i]);
+			add(dealerButtons[i]);
 		}
 		
 		card1 = new JLabel();
@@ -147,10 +149,6 @@ public class Panel extends JPanel {
 //			System.out.println(test.getName());
 //			test = test.next;
 //		}
-	}
-	
-	private Icon getIcon(String path) {
-		return new ImageIcon(path);
 	}
 
 	private int getIndex(Player dealer) {
