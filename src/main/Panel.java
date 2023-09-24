@@ -74,6 +74,7 @@ public class Panel extends JPanel {
 	// Pot fields
 	double pot;
 	JLabel potIcon;
+	JLabel potText;
 	
 	// Keeps track of all players hands at end of each hand to compare
 	Map<Player, ArrayList<Card>> playersHands;
@@ -130,6 +131,21 @@ public class Panel extends JPanel {
 			add(playerWallets[i]);
 			add(dealerButtons[i]);
 		}
+		
+		// Initializes pot
+		potIcon = new JLabel("");
+		potIcon.setIcon(new ImageIcon("pot.jpg"));
+		potIcon.setBounds(460, 230, 55, 55);
+		
+		potText = new JLabel();
+		potText.setText("$" + pot);
+		potText.setFont(new Font(potText.getFont().getFontName(), Font.BOLD, 15));
+		potText.setBounds(460, 265, 55, 55);
+		
+		potIcon.setOpaque(false);
+		potText.setOpaque(false);
+		add(potIcon);
+		add(potText);
 		
 		// Initializes user's card 1 slot
 		card1 = new JLabel();
