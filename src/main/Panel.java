@@ -147,16 +147,10 @@ public class Panel extends JPanel {
 		scrollPane.setBounds(200, 10, 600, 175);
 		add(scrollPane);
 		
-		// Initialize deck (put in method?) TODO
-		deck = new ArrayList<>();
-		for (int i = 0; i < 52; i++) {
-			deck.add(new Card(i));
-		}
-		
 		// Sets dealer initially to be one counterclockwise of user
 		Player current = p;
-		while (current.next != p) {
-			current = current.next;
+		while (current.next() != p) {
+			current = current.next();
 		}
 		// Sets the dealer field to be the one before the player
 		dealer = current;
@@ -218,38 +212,12 @@ public class Panel extends JPanel {
 		// Players hands initialization
 		playersHands = new HashMap<>();
 		
-		// Deals to all players (put in method) TODO
-		Player currentDeal = dealer.next;
-		while (dealer.getCard2().id == -1) {
-			if (currentDeal.getCard1().id == -1) {
-				currentDeal.setCard1(dealCard());
-			} else if (currentDeal.getCard2().id == -1) {
-				currentDeal.setCard2(dealCard());
-			}
-			currentDeal = currentDeal.next;
-		}
-		updateCards();
-		
-		// Flips the community cards initally setting only the flop to visible
-		communityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		// Initializes the community cards
 		communityDisplay = new JLabel[5];
-		community = new Card[5];
-		for (int i = 0; i < 5; i++) {
-			Card card = dealCard();
-			community[i] = card;
-			communityDisplay[i] = new JLabel();
-			communityDisplay[i].setIcon(new ImageIcon(card.icon));
-			
-			communityPanel.add(communityDisplay[i]);
-			if (i < 3) {
-				communityDisplay[i].setVisible(true);
-			} else {
-				communityDisplay[i].setVisible(false);
-			}
-		}
-		communityPanel.setBounds(284, 310, 500, 125);
-		communityPanel.setOpaque(false);
-		cardsShown = 3; // Initializes game state
+		communityPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+		
+		// Deals to all players (put in method) TODO
+		dealCards(true);
 		add(communityPanel);
 		
 		revealAll(dealer);
@@ -272,13 +240,63 @@ public class Panel extends JPanel {
 //		}
 	}
 	
+	private void dealCards(boolean init) {
+		deck = new ArrayList<>();
+		for (int i = 0; i < 52; i++) {
+			deck.add(new Card(i));
+		}
+		
+		Player currentDeal = dealer.next();
+		removeCards(currentDeal);
+		while (dealer.getCard2().id == -1) {
+			if (currentDeal.getCard1().id == -1) {
+				currentDeal.setCard1(dealCard());
+			} else if (currentDeal.getCard2().id == -1) {
+				currentDeal.setCard2(dealCard());
+			}
+			currentDeal = currentDeal.next();
+		}
+		updateCards();
+		
+		community = new Card[5];
+		for (int i = 0; i < 5; i++) {
+			Card card = dealCard();
+			community[i] = card;
+			if (init) communityDisplay[i] = new JLabel();
+			communityDisplay[i].setIcon(new ImageIcon(card.icon));
+			
+			if (init) communityPanel.add(communityDisplay[i]);
+			if (i < 3) {
+				communityDisplay[i].setVisible(true);
+			} else {
+				communityDisplay[i].setVisible(false);
+			}
+		}
+		if (init) {
+			communityPanel.setBounds(284, 310, 500, 125);
+			communityPanel.setOpaque(false);
+		}
+		cardsShown = 3; // Initializes game state
+	}
+
+	private void removeCards(Player currentDeal) {
+		Player current = currentDeal;
+		do {
+			current.setCard1(new Card(-1));
+			current.setCard2(new Card(-1));
+			current = current.next();
+		} while (current != currentDeal);
+		
+	}
+
 	private void advance() {
 		if (actor.npc) actor.move(this);
-		if (actor.next == underGun) {
-			endRound();
+		if (actor.next() == underGun) {
+			boolean playing = endRound();
+			if (!playing) return;
 		}
 		updateActor(actor);
-		actor = actor.next;
+		actor = actor.next();
 		updateActions();
 	}
 	
@@ -300,20 +318,39 @@ public class Panel extends JPanel {
 		
 	}
 
-	private void endRound() {
+	private boolean endRound() {
 		if (cardsShown == 6) {
 			endHand();
-			return;
+			return false;
 		}
 		cardsShown++;
 		if (cardsShown <= 5) {
 			communityDisplay[cardsShown - 1].setVisible(true);
 		}
+		return true;
 	}
 
 	private void endHand() {
 		JOptionPane.showMessageDialog(this, "Game is over!");
 		
+		// Setting old dealer chip to not active
+		int oldIndex = getIndex(dealer);
+		dealerButtons[oldIndex].setVisible(false);
+		
+		updateActor(dealer);
+		dealer = dealer.next();
+		
+		// Setting new dealer chip to active
+		int dealerIndex = getIndex(dealer);
+		dealerButtons[dealerIndex].setVisible(true);
+		
+		// Initally setting user to yellow (your turn)
+		updateActor(dealer);
+		actor = dealer.next();
+		underGun = dealer.next();
+		
+		dealCards(false);
+		updateActions();
 	}
 
 	/**
@@ -323,7 +360,7 @@ public class Panel extends JPanel {
 	private void updateActor(Player current) {
 		int currentIndex = getIndex(current);
 		playerWallets[currentIndex].setBackground(Color.white);
-		int nextIndex = getIndex(current.next);
+		int nextIndex = getIndex(current.next());
 		playerWallets[nextIndex].setBackground(Color.yellow);
 	}
 
@@ -333,7 +370,7 @@ public class Panel extends JPanel {
 		do {
 			if (current == dealer) return di;
 			di++;
-			current = current.next;
+			current = current.next();
 		}
 		while(current != p);
 		return -1;
@@ -511,11 +548,11 @@ public class Panel extends JPanel {
 		}
 	public void revealAll(Player dealer){
 
-		Player currentReveal = dealer.next;
+		Player currentReveal = dealer.next();
 		do {
 			//System.out.println(getBestHand(getYourCards(currentReveal)) + "\n");
-			currentReveal = currentReveal.next;
-		} while (currentReveal != dealer.next);
+			currentReveal = currentReveal.next();
+		} while (currentReveal != dealer.next());
 	}
 	
 	public void reveal(Player current){

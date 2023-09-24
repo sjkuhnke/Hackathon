@@ -20,6 +20,7 @@ public class Player {
 		wallet = 100;
 		
 		this.npc = npc;
+		in = true;
 	}
 	
 	public String getName() {
@@ -45,6 +46,15 @@ public class Player {
 	}
 	public void setCard2(Card c) {
 		card2 = c;
+	}
+	
+	public Player next() {
+		Player current = this;
+		do {
+			current = current.next;
+			if (current.in) break;
+		} while (current != this);
+		return current;
 	}
 
 	public void move(Panel panel) {
