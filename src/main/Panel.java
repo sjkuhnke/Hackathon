@@ -291,7 +291,7 @@ public class Panel extends JPanel {
 	private void updateWallets(Player dealer) {
 		Player current = dealer;
 		do {
-			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + current.getWallet() + "</b><br>" + current.getName() + "<br>" + String.format("%.2f", current.getBet()) + "</center></html");
+			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + String.format("%.2f", current.getWallet()) + "</b><br>" + current.getName() + "<br>" + current.getBet() + "</center></html");
 			current = current.next;
 		} while (current != dealer);
 		
@@ -365,7 +365,7 @@ public class Panel extends JPanel {
 		return true;
 	}
 
-	private void awardPot() {
+	private String awardPot() {
 		Map<Player, Integer> playersScores = new HashMap<>();
 		
 		for (Map.Entry<Player, ArrayList<Card>> e : playersHands.entrySet()) {
@@ -382,6 +382,7 @@ public class Panel extends JPanel {
 			}
 		}
 		distributePot(winners);
+		return displayWinners(winners);
 	}
 	private void distributePot(ArrayList<Player> winners) {
 		// Check if there are winners
@@ -405,9 +406,10 @@ public class Panel extends JPanel {
 	}
 
 	private void endHand() {
-		JOptionPane.showMessageDialog(this, "Game is over!");
+		String winners = awardPot();
 		
-		awardPot();
+		JOptionPane.showMessageDialog(this, "Game is over!\n\n" + winners);
+		
 		setNumPlayers();
 		playersHands = new HashMap<>();
 		
@@ -429,6 +431,21 @@ public class Panel extends JPanel {
 		
 		dealCards(false);
 		updateActions();
+	}
+
+	private String displayWinners(ArrayList<Player> winners) {
+		String result = "";
+		String hand = scoreToString(getHandValue(playersHands.get(winners.get(0))));
+		if (winners.size() > 1) {
+			for (Player player : winners) {
+				result += player.getName();
+				result += ", ";
+			}
+			result += "all won with a " + hand + "!";
+		} else {
+			result += winners.get(0).getName() + " won with a " + hand + "!";
+		}
+		return result;
 	}
 
 	private void setNumPlayers() {
