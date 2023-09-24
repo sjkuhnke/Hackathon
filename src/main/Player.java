@@ -16,7 +16,7 @@ public class Player {
 		card1 = new Card(-1);
 		card2 = new Card(-1);
 		
-		name = ""; // TODO: prompt user if null
+		name = "Angel"; // TODO: prompt user if null
 		wallet = 100;
 		
 		this.npc = npc;

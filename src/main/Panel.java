@@ -50,13 +50,13 @@ public class Panel extends JPanel {
 				players[i] = p;
 			} else {
 				players[i] = new Player(true);
-				players[i].setName("Player "+ i);
+				players[i].setName("Player " + (i + 1));
 				players[i - 1].next = players[i];
 			}
 			if (i == playerCount) {
 				players[i].next = p;
 			}
-			playerWallets[i] = new JLabel("$" + players[i].getWallet());
+			playerWallets[i] = new JLabel("<html>$" + players[i].getWallet() + "<br>" + players[i].getName() + "</html>");
 			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
@@ -103,7 +103,8 @@ public class Panel extends JPanel {
 			//cardLabel.setVisible(false);
 		}
 		
-		communityPanel.setBounds(100, 100, 500, 125);
+		communityPanel.setBounds(284, 310, 500, 125);
+		communityPanel.setOpaque(false);
 		add(communityPanel);
 		
 		ArrayList<Card> yourCards = new ArrayList<>();
