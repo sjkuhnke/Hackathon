@@ -52,6 +52,9 @@ public class Panel extends JPanel {
 				players[i] = new Player(true);
 				players[i - 1].next = players[i];
 			}
+			if (i == playerCount) {
+				players[i].next = p;
+			}
 			playerWallets[i] = new JLabel("$" + players[i].getWallet());
 			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			playerWallets[i].setOpaque(true);
@@ -109,7 +112,7 @@ public class Panel extends JPanel {
 		yourCards.add(p.getCard1());
 		yourCards.add(p.getCard2());
 		
-		getBestHand(yourCards);
+		System.out.println(getBestHand(yourCards));
 		
 		addMouseListener(new MouseAdapter() {
             @Override
@@ -142,8 +145,7 @@ public class Panel extends JPanel {
 		g.drawImage(img, 0, 0, null);
 	}
 	
-	private Card[] getBestHand(ArrayList<Card> yourCards) {
-		Card[] result = new Card[5];
+	private ArrayList<Card> getBestHand(ArrayList<Card> yourCards) {
 		ArrayList<ArrayList<Card>> possibleHands = generateCombinations(yourCards);
 		
 		Map<ArrayList<Card>, Integer> scores = new HashMap<>();
@@ -151,9 +153,21 @@ public class Panel extends JPanel {
 			scores.put(hand, getHandValue(hand));
 		}
 		
-		System.out.print(scoreToString(Collections.max(scores.values())));
+		int bestScore = 0;
+		ArrayList<Card> bestHand = null;
 		
-		return result;
+		for (Map.Entry<ArrayList<Card>, Integer> entry : scores.entrySet()) {
+			int score = entry.getValue();
+			if (score > bestScore) {
+				bestScore = score;
+				bestHand = entry.getKey();
+			}
+		}
+		
+		int score = Collections.max(scores.values());
+		System.out.println(scoreToString(score));
+		
+		return bestHand;
 	}
 
 	private ArrayList<ArrayList<Card>> generateCombinations(ArrayList<Card> yourCards) {

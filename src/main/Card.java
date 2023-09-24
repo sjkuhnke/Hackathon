@@ -94,7 +94,9 @@ public class Card {
 	}
 	
 	public String toString() {
-		return rankName.charAt(0) + "";
+		String first = rankName.charAt(0) + "";
+		if (rankName.equals("10")) first = rankName;
+		return first;
 	}
 	
 }
