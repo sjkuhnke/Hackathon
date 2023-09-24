@@ -177,7 +177,7 @@ public class Panel extends JPanel {
 		// Fold button initialization
 		foldButton = new JButton("Fold");
 		foldButton.addActionListener(e -> {
-			underGun = p.fold(underGun);
+			underGun = p.fold(this);
 			advance();
 		});
 		userActions.add(foldButton);
@@ -382,6 +382,7 @@ public class Panel extends JPanel {
 		JOptionPane.showMessageDialog(this, "Game is over!");
 		
 		awardPot();
+		setNumPlayers();
 		
 		// Setting old dealer chip to not active
 		int oldIndex = getIndex(dealer);
@@ -401,6 +402,20 @@ public class Panel extends JPanel {
 		
 		dealCards(false);
 		updateActions();
+	}
+
+	private void setNumPlayers() {
+		Player current = dealer;
+		do {
+			if (current.getWallet() <= 0.00) {
+				current.remove();
+			} else if (!current.in) {
+				playersIn++;
+				current.in = true;
+			}
+			current = current.next;
+		} while (current != dealer);
+		
 	}
 
 	/**
