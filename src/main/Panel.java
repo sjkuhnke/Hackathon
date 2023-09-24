@@ -110,17 +110,11 @@ public class Panel extends JPanel {
 			communityPanel.add(cardLabel);
 			//cardLabel.setVisible(false);
 		}
-		
 		communityPanel.setBounds(284, 310, 500, 125);
 		communityPanel.setOpaque(false);
 		add(communityPanel);
 		
-		Player currentReveal = dealer.next;
-		do {
-			System.out.println(getBestHand(getYourCards(currentReveal)));
-			currentReveal = currentReveal.next;
-		} while (currentReveal != dealer.next);
-		
+		revealAll(dealer);
 		
 		addMouseListener(new MouseAdapter() {
             @Override
@@ -314,5 +308,13 @@ public class Panel extends JPanel {
 				return "High Card";
 			}
 		}
+	public void revealAll(Player dealer){
+
+		Player currentReveal = dealer.next;
+		do {
+			System.out.println(getBestHand(getYourCards(currentReveal)));
+			currentReveal = currentReveal.next;
+		} while (currentReveal != dealer.next);
+	}
 
 }
