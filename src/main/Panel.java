@@ -16,6 +16,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 public class Panel extends JPanel {
 
@@ -33,6 +34,7 @@ public class Panel extends JPanel {
 	Card[] community;
 	JLabel[] playerWallets;
 	Player[] players;
+	JLabel[] playerTurnIndicators;
 
 	public Panel(Image img, Player p, int playerCount) {
 		this.p = p;
@@ -42,9 +44,10 @@ public class Panel extends JPanel {
 		setLayout(null);
 		
 		playerWallets = new JLabel[playerCount + 1];
+		playerTurnIndicators = new JLabel[playerCount + 1];
 		players = new Player[playerCount + 1];
-		int[] xPositions = new int[] {447, 195, 182, 658, 696};
-		int[] yPositions = new int[] {484, 446, 307, 263, 460};
+		int[] xPositions = new int[] {465, 195, 195, 724, 724};
+		int[] yPositions = new int[] {484, 446, 280, 280, 446};
 		for (int i = 0; i <= playerCount; i++) {
 			if (i == 0) {
 				players[i] = p;
@@ -60,6 +63,9 @@ public class Panel extends JPanel {
 			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
+			
+			playerTurnIndicators[i].add(new JRadioButton());
+			playerTurnIndicators[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			
 			add(playerWallets[i]);
 		}
