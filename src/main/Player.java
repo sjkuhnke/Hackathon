@@ -62,21 +62,33 @@ public class Player {
 	public void move(Panel panel) {
 		if (panel.cardsShown == 6) {
 			panel.reveal(this);
+			return;
 		}
 		Random random = new Random();
 		int choice = random.nextInt(2);
 		if (choice == 0) {
-			panel.underGun = fold(panel.underGun);
+			panel.underGun = fold(panel);
 		}
 	}
 
-	public Player fold(Player underGun) {
+	public Player fold(Panel panel) {
 		System.out.println(this.getName() + " folded!");
 		this.in = false;
-		if (underGun == this) {
-			underGun = this.next();
+		panel.playersIn--;
+		if (panel.underGun == this) {
+			panel.underGun = this.next();
 		}
-		return underGun;
+		return panel.underGun;
+		
+	}
+
+	public void remove() {
+		Player current = this;
+		while (current.next != this) {
+			current = current.next;
+		}
+		current.next = this.next.next;
+		this.next = null;
 		
 	}
 }
