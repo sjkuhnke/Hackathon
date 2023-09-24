@@ -109,8 +109,30 @@ public class Player {
 	
 	public boolean bet(double bet) {
 		if (bet > wallet) return false;
+		System.out.println(this.getName() + " called $" + bet);
 		this.bet += bet;
 		this.wallet -= bet;
 		return true;
+	}
+
+	public Player raise(int i, Panel panel) {
+		if (!bet(5)) {
+			call(panel, panel.underGun.bet);
+			return panel.underGun;
+		}
+		panel.updateWallets(this);
+		System.out.println(this.getName() + " raised $" + i);
+		return this;
+	}
+
+	private void call(Panel panel, double bet) {
+		if (panel.underGun.bet == 0) {
+			return;
+		} else {
+			if (!bet(panel.underGun.bet)) {
+				fold(panel);
+			}
+		}
+		
 	}
 }

@@ -207,7 +207,8 @@ public class Panel extends JPanel {
 		// Fold button initialization
 		raiseButton = new JButton("Raise");
 		raiseButton.addActionListener(e -> {
-			System.out.println("not implemented");
+			underGun = actor.raise(5, this);
+			advance();
 		});
 		userActions.add(raiseButton);
 		
@@ -288,7 +289,7 @@ public class Panel extends JPanel {
 		cardsShown = 3; // Initializes game state
 	}
 
-	private void updateWallets(Player dealer) {
+	public void updateWallets(Player dealer) {
 		Player current = dealer;
 		do {
 			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + String.format("%.2f", current.getWallet()) + "</b><br>" + current.getName() + "<br>" + current.getBet() + "</center></html");
