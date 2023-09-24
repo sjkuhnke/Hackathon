@@ -64,7 +64,7 @@ public class Panel extends JPanel {
 			if (i == playerCount) {
 				players[i].next = p;
 			}
-			playerWallets[i] = new JLabel("<html><center><b>$" + players[i].getWallet() + "</b><br>" + players[i].getName() + "</center></html>");			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
+			playerWallets[i] = new JLabel("<html><center><b>" + "$" + players[i].getWallet() + "</b><br>" + players[i].getName() + "</center></html>");			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
 			
