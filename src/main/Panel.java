@@ -311,7 +311,7 @@ public class Panel extends JPanel {
 	private void updateWallets(Player dealer) {
 		Player current = dealer;
 		do {
-			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + current.getWallet() + "</b><br>" + current.getName() + "<br>" + current.getBet() + "</center></html");
+			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + current.getWallet() + "</b><br>" + current.getName() + "<br>" + String.format("%.2f", current.getBet()) + "</center></html");
 			current = current.next;
 		} while (current != dealer);
 		
