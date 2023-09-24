@@ -3,10 +3,12 @@ package main;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,6 +18,10 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+import library.CustomOutputStream;
 
 public class Panel extends JPanel {
 
@@ -58,8 +64,7 @@ public class Panel extends JPanel {
 			if (i == playerCount) {
 				players[i].next = p;
 			}
-			playerWallets[i] = new JLabel("<html>$" + players[i].getWallet() + "<br>" + players[i].getName() + "</html>");
-			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
+			playerWallets[i] = new JLabel("<html><center><b>$" + players[i].getWallet() + "</b><br>" + players[i].getName() + "</center></html>");			playerWallets[i].setBounds(xPositions[i], yPositions[i], 50, 30);
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
 			
@@ -84,6 +89,18 @@ public class Panel extends JPanel {
 		card2.setBounds(500, 535, 200, 200);
 		add(card2);
 		
+		JTextArea console = new JTextArea();
+		console.setEditable(false);
+		console.setFont(new Font(console.getFont().getName(), Font.BOLD, 16));
+		
+		PrintStream printStream = new PrintStream(new CustomOutputStream(console));
+		
+		System.setOut(printStream);
+		
+		JScrollPane scrollPane = new JScrollPane(console);
+		scrollPane.setBounds(200, 10, 600, 175);
+		add(scrollPane);
+		
 		// Initialize deck (put in method?)
 		deck = new ArrayList<>();
 		for (int i = 0; i < 52; i++) {
@@ -99,6 +116,9 @@ public class Panel extends JPanel {
 		
 		int dealerIndex = getIndex(dealer);
 		dealerButtons[dealerIndex].setVisible(true);
+		
+		int currentIndex = getIndex(dealer.next);
+		playerWallets[currentIndex].setBackground(Color.yellow);
 		
 		Player currentDeal = dealer.next;
 		while (dealer.getCard2().id == -1) {
@@ -295,7 +315,6 @@ public class Panel extends JPanel {
 	    }
 	    // Check for straight
 	    else if (isStraight) {
-	    	System.out.println(rankList);
 	    	return 5;
 	    }
 	    // Check for trips
@@ -338,7 +357,7 @@ public class Panel extends JPanel {
 
 		Player currentReveal = dealer.next;
 		do {
-			System.out.println(getBestHand(getYourCards(currentReveal)));
+			System.out.println(getBestHand(getYourCards(currentReveal)) + "\n");
 			currentReveal = currentReveal.next;
 		} while (currentReveal != dealer.next);
 	}
