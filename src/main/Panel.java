@@ -459,6 +459,8 @@ public class Panel extends JPanel {
 			} else if (!current.in) {
 				playersIn++;
 				current.in = true;
+				int index = getIndex(current);
+				playerWallets[index].setBackground(Color.white);
 			}
 			current = current.next;
 		} while (current != dealer);
@@ -472,6 +474,7 @@ public class Panel extends JPanel {
 	private void updateActor(Player current) {
 		int currentIndex = getIndex(current);
 		playerWallets[currentIndex].setBackground(Color.white);
+		if (!current.in) playerWallets[currentIndex].setBackground(Color.gray);
 		int nextIndex = getIndex(current.next());
 		playerWallets[nextIndex].setBackground(Color.yellow);
 	}
