@@ -25,11 +25,11 @@ class Main {
             options, 
             options[0]
         );
-        String[] numOpponentsOptions = {"1", "2", "3", "4", "5"};
+        String[] numOpponentsOptions = {"1", "2", "3", "4"};
 
         int numPlayersEntry = JOptionPane.showOptionDialog(
             null, 
-            "How many players, including yourself?", 
+            "How many opponents?", 
             "Game Options", 
             JOptionPane.DEFAULT_OPTION, 
             JOptionPane.QUESTION_MESSAGE, 
@@ -37,7 +37,7 @@ class Main {
             numOpponentsOptions, 
             numOpponentsOptions[0]
         );
-        int numPlayers = Integer.valueOf(numPlayersEntry);
+        int numPlayers = Integer.valueOf(numPlayersEntry) + 1;
         Player p = choiceHandler(choice);
         Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p, numPlayers);
         
