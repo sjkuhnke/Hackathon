@@ -85,8 +85,8 @@ public class Card {
 			System.out.println(imageName);
 			e.printStackTrace();
 		}
-		int scaledWidth = (int) (image.getWidth(null) * 1);
-		int scaledHeight = (int) (image.getHeight(null) * 1);
+		int scaledWidth = (int) (image.getWidth(null) * 0.85);
+		int scaledHeight = (int) (image.getHeight(null) * 0.85);
 		
 		Image scaledImage = image.getScaledInstance(scaledWidth, scaledHeight, Image.SCALE_DEFAULT);
 		icon = scaledImage;

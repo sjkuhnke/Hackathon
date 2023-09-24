@@ -59,16 +59,18 @@ public class Player {
 		return current;
 	}
 
-	public void move(Panel panel) {
+	public Player move(Panel panel) {
+		if (!this.npc) return panel.underGun;
 		if (panel.cardsShown == 6) {
 			panel.reveal(this);
-			return;
+			return panel.underGun;
 		}
 		Random random = new Random();
-		int choice = random.nextInt(2);
+		int choice = random.nextInt(4);
 		if (choice == 0) {
-			panel.underGun = fold(panel);
+			return fold(panel);
 		}
+		return panel.underGun;
 	}
 
 	public Player fold(Panel panel) {
@@ -76,7 +78,7 @@ public class Player {
 		this.in = false;
 		panel.playersIn--;
 		if (panel.underGun == this) {
-			panel.underGun = this.next();
+			return this.next();
 		}
 		return panel.underGun;
 		
