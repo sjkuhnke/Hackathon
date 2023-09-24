@@ -80,12 +80,17 @@ public class Panel extends JPanel {
 			deck.add(new Card(i));
 		}
 		
-		Player lastDeal = p; // Make blind
-		while (lastDeal.getCard2().id == -1) {
-			//Player current = lastDeal.next;
-			if (p.getCard1().id == -1) p.setCard1(dealCard());
-			if (p.getCard2().id == -1) p.setCard2(dealCard());
-			// current = current.next
+		Player current = p;
+		while (current.next != p) {
+			current = current.next;
+		}
+		
+		Player dealer = current; // Make blind
+		while (dealer.getCard2().id == -1) {
+			Player currentDeal = dealer.next;
+			if (currentDeal.getCard1().id == -1) currentDeal.setCard1(dealCard());
+			if (currentDeal.getCard2().id == -1) currentDeal.setCard2(dealCard());
+			currentDeal = currentDeal.next;
 		}
 		updateCards();
 		
@@ -127,10 +132,10 @@ public class Panel extends JPanel {
                 System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
             }
         });
-//		Player current = p;
-//		while(current.next != null) {
-//			System.out.println(current.getName());
-//			current = current.next;
+//		Player test = p;
+//		while(test.next != null) {
+//			System.out.println(test.getName());
+//			test = test.next;
 //		}
 	}
 	
