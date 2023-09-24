@@ -7,15 +7,12 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -320,7 +317,7 @@ public class Panel extends JPanel {
 			case 9:
 				return "Straight Flush";
 			case 8:
-				return "Quads";
+				return "Four of a Kind";
 			case 7:
 				return "Full House";
 			case 6:
@@ -328,7 +325,7 @@ public class Panel extends JPanel {
 			case 5:
 				return "Straight";
 			case 4:
-				return "Trips";
+				return "Three of a Kind";
 			case 3:
 				return "Two Pair";
 			case 2:
