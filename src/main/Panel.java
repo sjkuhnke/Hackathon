@@ -13,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
 
 public class Panel extends JPanel {
 
@@ -34,7 +34,7 @@ public class Panel extends JPanel {
 	Card[] community;
 	JLabel[] playerWallets;
 	Player[] players;
-	JRadioButton[] dealerButtons;
+	JLabel[] dealerButtons;
 
 	public Panel(Image img, Player p, int playerCount) {
 		this.p = p;
@@ -44,7 +44,7 @@ public class Panel extends JPanel {
 		setLayout(null);
 		
 		playerWallets = new JLabel[playerCount + 1];
-		dealerButtons = new JRadioButton[playerCount + 1];
+		dealerButtons = new JLabel[playerCount + 1];
 		players = new Player[playerCount + 1];
 		int[] xPositions = new int[] {465, 195, 195, 724, 724};
 		int[] yPositions = new int[] {484, 446, 280, 280, 446};
@@ -64,12 +64,13 @@ public class Panel extends JPanel {
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
 			
-			dealerButtons[i] = new JRadioButton();
+			dealerButtons[i] = new JLabel("");
 			dealerButtons[i].setEnabled(true);
-			dealerButtons[i].setSelected(true);
+			dealerButtons[i].setIcon(getIcon("/essentials/dealer.png"));
 			dealerButtons[i].setBounds(xPositions[i], yPositions[i] + 30, 22, 22);
 			dealerButtons[i].setOpaque(false);
 			dealerButtons[i].setVisible(false);
+			
 			add(dealerButtons[i]);
 			add(playerWallets[i]);
 		}
@@ -148,6 +149,10 @@ public class Panel extends JPanel {
 //		}
 	}
 	
+	private Icon getIcon(String path) {
+		return new ImageIcon(path);
+	}
+
 	private int getIndex(Player dealer) {
 		Player current = p;
 		int di = 0;
