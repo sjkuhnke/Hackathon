@@ -200,6 +200,7 @@ public class Panel extends JPanel {
 		// Fold button initialization
 		callButton = new JButton("Call");
 		callButton.addActionListener(e -> {
+			p.call(this, underGun.getBet());
 			advance();
 		});
 		userActions.add(callButton);

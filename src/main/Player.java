@@ -125,7 +125,7 @@ public class Player {
 		return this;
 	}
 
-	private void call(Panel panel, double bet) {
+	public void call(Panel panel, double bet) {
 		if (panel.underGun.bet == 0) {
 			return;
 		} else {
