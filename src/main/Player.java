@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 public class Player {	
 	
 	private int wallet;
@@ -61,6 +63,20 @@ public class Player {
 		if (panel.cardsShown == 6) {
 			panel.reveal(this);
 		}
+		Random random = new Random();
+		int choice = random.nextInt(2);
+		if (choice == 0) {
+			panel.underGun = fold(panel.underGun);
+		}
+	}
+
+	public Player fold(Player underGun) {
+		System.out.println(this.getName() + " folded!");
+		this.in = false;
+		if (underGun == this) {
+			underGun = this.next();
+		}
+		return underGun;
 		
 	}
 }

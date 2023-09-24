@@ -169,7 +169,8 @@ public class Panel extends JPanel {
 		// Fold button initialization
 		foldButton = new JButton("Fold");
 		foldButton.addActionListener(e -> {
-			System.out.println("not implemented");
+			underGun = p.fold(underGun);
+			advance();
 		});
 		userActions.add(foldButton);
 		
@@ -370,7 +371,7 @@ public class Panel extends JPanel {
 		do {
 			if (current == dealer) return di;
 			di++;
-			current = current.next();
+			current = current.next;
 		}
 		while(current != p);
 		return -1;
