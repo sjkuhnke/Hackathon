@@ -177,8 +177,9 @@ public class Panel extends JPanel {
 		// Fold button initialization
 		foldButton = new JButton("Fold");
 		foldButton.addActionListener(e -> {
-			underGun = p.fold(this);
+			Player newGun = p.fold(this);
 			advance();
+			underGun = newGun;
 		});
 		userActions.add(foldButton);
 		
@@ -282,7 +283,7 @@ public class Panel extends JPanel {
 			}
 		}
 		if (init) {
-			communityPanel.setBounds(284, 310, 500, 125);
+			communityPanel.setBounds(275, 315, 500, 150);
 			communityPanel.setOpaque(false);
 		}
 		cardsShown = 3; // Initializes game state
@@ -299,13 +300,14 @@ public class Panel extends JPanel {
 	}
 
 	private void advance() {
-		if (actor.npc) actor.move(this);
+		Player newGun = actor.move(this);
 		if (actor.next() == underGun) {
 			boolean playing = endRound();
 			if (!playing) return;
 		}
 		updateActor(actor);
 		actor = actor.next();
+		underGun = newGun;
 		updateActions();
 	}
 	
@@ -383,6 +385,7 @@ public class Panel extends JPanel {
 		
 		awardPot();
 		setNumPlayers();
+		playersHands = new HashMap<>();
 		
 		// Setting old dealer chip to not active
 		int oldIndex = getIndex(dealer);
