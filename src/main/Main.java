@@ -12,6 +12,8 @@ class Main {
 		window.setTitle("Poker Game");
 		
 		String[] options = {"New Game", "Continue"};
+		
+		
 
         int choice = JOptionPane.showOptionDialog(
             null, 
@@ -23,9 +25,21 @@ class Main {
             options, 
             options[0]
         );
-        
+        String[] numOpponentsOptions = {"1", "2", "3", "4"};
+
+        int numPlayersEntry = JOptionPane.showOptionDialog(
+            null, 
+            "How many opponents?", 
+            "Game Options", 
+            JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            numOpponentsOptions, 
+            numOpponentsOptions[0]
+        );
+        int numPlayers = Integer.valueOf(numPlayersEntry) + 1;
         Player p = choiceHandler(choice);
-        Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p, 4);
+        Panel gamePanel = new Panel(new ImageIcon("background.png").getImage(), p, numPlayers);
         
 		window.add(gamePanel);
 		gamePanel.add(new JLabel(choice + ""));
