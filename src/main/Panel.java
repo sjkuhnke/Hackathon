@@ -50,6 +50,7 @@ public class Panel extends JPanel {
 				players[i] = p;
 			} else {
 				players[i] = new Player(true);
+				players[i].setName("Player "+ i);
 				players[i - 1].next = players[i];
 			}
 			if (i == playerCount) {
@@ -125,6 +126,11 @@ public class Panel extends JPanel {
                 System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
             }
         });
+//		Player current = p;
+//		while(current.next != null) {
+//			System.out.println(current.getName());
+//			current = current.next;
+//		}
 	}
 	
 	private void updateCards() {
