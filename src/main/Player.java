@@ -46,4 +46,11 @@ public class Player {
 	public void setCard2(Card c) {
 		card2 = c;
 	}
+
+	public void move(Panel panel) {
+		if (panel.cardsShown == 6) {
+			panel.reveal(this);
+		}
+		
+	}
 }

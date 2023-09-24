@@ -93,10 +93,29 @@ public class Card {
 		
 	}
 	
+	@SuppressWarnings("unused")
+	private String getSuitSymbol(String suit) {
+	    switch (suit) {
+	        case "Clubs":
+	            return "♣"; // Club symbol (♣)
+	        case "Diamonds":
+	            return "♦"; // Diamond symbol (♦)
+	        case "Hearts":
+	            return "♥"; // Heart symbol (♥)
+	        case "Spades":
+	            return "♠"; // Spade symbol (♠)
+	        default:
+	            return ""; // Default to an empty string if the suit is not recognized
+	    }
+	}
+
 	public String toString() {
-		String first = rankName.charAt(0) + "";
-		if (rankName.equals("10")) first = rankName;
-		return first;
+	    String first = rankName.charAt(0) + "";
+	    if (rankName.equals("10")) {
+	        first = rankName;
+	    }
+	    String suitSymbol = "";
+	    return first + suitSymbol;
 	}
 	
 }
