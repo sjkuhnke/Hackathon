@@ -68,6 +68,9 @@ public class Panel extends JPanel {
 	JButton nextButton;
 	JButton revealButton;
 	
+	//Number of players playing the hand
+	int playersIn;
+	
 	// Keeps track of all players hands at end of each hand to compare
 	Map<Player, ArrayList<Card>> playersHands;
 	
@@ -76,6 +79,7 @@ public class Panel extends JPanel {
 
 	public Panel(Image img, Player p, int playerCount) {
 		this.p = p;
+		playersIn = playerCount + 1;
 		
 		// Set background image
 		this.img = img;
@@ -331,8 +335,33 @@ public class Panel extends JPanel {
 		return true;
 	}
 
+	private void awardPot() {
+		Map<Player, Integer> playersScores = new HashMap<>();
+		
+		for (Map.Entry<Player, ArrayList<Card>> e : playersHands.entrySet()) {
+			Player player = e.getKey();
+			ArrayList<Card> hand = e.getValue();
+			int score = getHandValue(hand);
+			playersScores.put(player,score);
+		}
+		int maxHandValue = Collections.max(playersScores.values());
+		ArrayList<Player> winners = new ArrayList<>();
+		for (Map.Entry<Player,Integer> e : playersScores.entrySet()) {
+			if (e.getValue() == maxHandValue) {
+				winners.add(e.getKey());
+			}
+		}
+		distributePot();
+	}
+	private void distributePot() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void endHand() {
 		JOptionPane.showMessageDialog(this, "Game is over!");
+		
+		
 		
 		// Setting old dealer chip to not active
 		int oldIndex = getIndex(dealer);
