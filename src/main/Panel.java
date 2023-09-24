@@ -71,6 +71,10 @@ public class Panel extends JPanel {
 	//Number of players playing the hand
 	int playersIn;
 	
+	// Pot fields
+	double pot;
+	JLabel potIcon;
+	
 	// Keeps track of all players hands at end of each hand to compare
 	Map<Player, ArrayList<Card>> playersHands;
 	
@@ -351,17 +355,33 @@ public class Panel extends JPanel {
 				winners.add(e.getKey());
 			}
 		}
-		distributePot();
+		distributePot(winners);
 	}
-	private void distributePot() {
-		// TODO Auto-generated method stub
-		
+	private void distributePot(ArrayList<Player> winners) {
+		// Check if there are winners
+	    if (winners.isEmpty()) {
+	        // No winners, do nothing
+	        return;
+	    }
+
+	    // Calculate the amount to be distributed to each winner
+	    double potSize = pot; // Assuming you have a getPot() method to retrieve the pot size
+	    double amountPerWinner = potSize / winners.size();
+
+	    // Increment each winner's wallet by the calculated amount
+	    for (Player winner : winners) {
+	        double currentWallet = winner.getWallet(); // Get the current wallet balance
+	        winner.setWallet(currentWallet + amountPerWinner); // Update the wallet balance
+	    }
+
+	    // Reset the pot to zero or whatever is appropriate in your game
+		pot = 0;
 	}
 
 	private void endHand() {
 		JOptionPane.showMessageDialog(this, "Game is over!");
 		
-		
+		awardPot();
 		
 		// Setting old dealer chip to not active
 		int oldIndex = getIndex(dealer);

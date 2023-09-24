@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Player {	
 	
-	private int wallet;
+	private double wallet;
 	private String name;
 	
 	private Card card1;
@@ -40,8 +40,8 @@ public class Player {
 	public String setName(String newName) {
 		return this.name = newName;
 	}
-	public void setWallet(int newAmount) {
-		this.wallet = newAmount;
+	public void setWallet(double d) {
+		this.wallet = d;
 	}
 	public void setCard1(Card c) { 
 		card1 = c;
