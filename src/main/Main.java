@@ -17,7 +17,7 @@ class Main {
 
         int choice = JOptionPane.showOptionDialog(
             null, 
-            "Select an option:", 
+            "Welcome to our poker game!\nby Shae K., Josh B., Tommy T. and Angel V.\n\nPlease, select an option:", 
             "Game Options", 
             JOptionPane.YES_NO_OPTION, 
             JOptionPane.QUESTION_MESSAGE, 
