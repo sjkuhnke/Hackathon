@@ -71,6 +71,11 @@ public class Player {
 		if (choice == 0) {
 			return fold(panel);
 		}
+		if (choice == 1) {
+			return raise(panel.underGun.bet + 5, panel);
+		} else {
+			call(panel, panel.underGun.bet);
+		}
 		return panel.underGun;
 	}
 
@@ -107,32 +112,51 @@ public class Player {
 		this.bet += bet;
 	}
 	
-	public boolean bet(double bet) {
-		if (bet > wallet) return false;
-		System.out.println(this.getName() + " called $" + bet);
-		this.bet += bet;
-		this.wallet -= bet;
-		return true;
+	public boolean bet(double betAmount, boolean announce) {
+	    if (betAmount <= 0 || betAmount > wallet) {
+	        return false;
+	    }
+
+	    if (announce) {
+	        System.out.println(this.getName() + " called $" + betAmount);
+	    }
+
+	    this.bet += betAmount;
+	    this.wallet -= betAmount;
+	    return true;
 	}
 
-	public Player raise(int i, Panel panel) {
-		if (!bet(5)) {
-			call(panel, panel.underGun.bet);
-			return panel.underGun;
-		}
-		panel.updateWallets(this);
-		System.out.println(this.getName() + " raised $" + i);
-		return this;
+	public Player raise(double d, Panel panel) {
+		if (d <= 0 || d > wallet) {
+	        return null; // Invalid raise amount
+	    }
+		
+		double currentBet = panel.underGun.bet;
+	    double totalBet = currentBet + d;
+		
+	    if (!bet(totalBet, false)) {
+	        // Call if the raise fails
+	        call(panel, currentBet);
+	        return panel.underGun;
+	    }
+
+	    // Update the current bet amount
+	    panel.underGun.bet = totalBet;
+
+	    panel.updateWallets(this);
+	    System.out.println(this.getName() + " raised $" + d);
+	    return this;
 	}
 
 	public void call(Panel panel, double bet) {
-		if (panel.underGun.bet == 0) {
-			return;
-		} else {
-			if (!bet(panel.underGun.bet)) {
-				fold(panel);
-			}
-		}
+		double amountToCall = bet - this.bet;
+
+	    if (amountToCall < 0 || amountToCall > wallet) {
+	        amountToCall = wallet;
+	    }
+
+	    bet(amountToCall, true);
+	    panel.updateWallets(panel.dealer);
 		
 	}
 }

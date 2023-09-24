@@ -360,6 +360,14 @@ public class Panel extends JPanel {
 			endHand();
 			return false;
 		}
+		Player current = underGun;
+		do {
+			pot += current.getBet();
+			current.setBet(0);
+			current = current.next;
+		} while (current != underGun);
+		updatePot();
+		updateWallets(dealer);
 		cardsShown++;
 		if (cardsShown <= 5) {
 			communityDisplay[cardsShown - 1].setVisible(true);
