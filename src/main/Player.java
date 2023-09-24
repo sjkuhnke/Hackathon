@@ -13,6 +13,7 @@ public class Player {
 	public Player next;
 	public boolean npc;
 	public boolean in;
+	private double bet;
 	
 	public Player(boolean npc) {
 		card1 = new Card(-1);
@@ -92,5 +93,24 @@ public class Player {
 		current.next = this.next.next;
 		this.next = null;
 		
+	}
+	
+	public double getBet() {
+		return bet;
+	}
+	
+	public void setBet(double bet) {
+		this.bet = bet;
+	}
+	
+	public void addBet(double bet) {
+		this.bet += bet;
+	}
+	
+	public boolean bet(double bet) {
+		if (bet > wallet) return false;
+		this.bet += bet;
+		this.wallet -= bet;
+		return true;
 	}
 }

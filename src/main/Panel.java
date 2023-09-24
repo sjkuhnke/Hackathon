@@ -115,8 +115,8 @@ public class Panel extends JPanel {
 			}
 			
 			// Sets text and bounds of each Player wallet
-			playerWallets[i] = new JLabel("<html><center><b>" + "$" + players[i].getWallet() + "</b><br>" + players[i].getName() + "</center></html");
-			playerWallets[i].setBounds(xPositions[i], yPositions[i], 60, 35);
+			playerWallets[i] = new JLabel("<html><center><b>" + "$" + players[i].getWallet() + "</b><br>" + players[i].getName() + "<br>" + players[i].getBet() + "</center></html");
+			playerWallets[i].setBounds(xPositions[i], yPositions[i], 60, 50);
 			playerWallets[i].setOpaque(true);
 			playerWallets[i].setBackground(Color.WHITE);
 			
@@ -134,7 +134,7 @@ public class Panel extends JPanel {
 		
 		// Initializes pot
 		potIcon = new JLabel("");
-		potIcon.setIcon(new ImageIcon("pot.jpg"));
+		potIcon.setIcon(new ImageIcon("pot.png"));
 		potIcon.setBounds(460, 230, 55, 55);
 		
 		potText = new JLabel();
@@ -278,11 +278,14 @@ public class Panel extends JPanel {
 			if (currentDeal.getCard1().id == -1) {
 				currentDeal.setCard1(dealCard());
 			} else if (currentDeal.getCard2().id == -1) {
+				addToPot(currentDeal, 5);
 				currentDeal.setCard2(dealCard());
 			}
 			currentDeal = currentDeal.next();
 		}
 		updateCards();
+		updatePot();
+		updateWallets(dealer);
 		
 		community = new Card[5];
 		for (int i = 0; i < 5; i++) {
@@ -303,6 +306,31 @@ public class Panel extends JPanel {
 			communityPanel.setOpaque(false);
 		}
 		cardsShown = 3; // Initializes game state
+	}
+
+	private void updateWallets(Player dealer) {
+		Player current = dealer;
+		do {
+			playerWallets[getIndex(current)].setText("<html><center><b>" + "$" + current.getWallet() + "</b><br>" + current.getName() + "<br>" + current.getBet() + "</center></html");
+			current = current.next;
+		} while (current != dealer);
+		
+	}
+
+	private void updatePot() {
+		potText.setText("$" + pot);
+	}
+
+	private void addToPot(Player current, int amt) {
+		if (amt > current.getWallet()) {
+			if (!current.npc) {
+				JOptionPane.showMessageDialog(this, "Not enough money!");
+				return;
+			}
+		}
+		current.setWallet(current.getWallet() - amt);
+		pot += amt;
+		
 	}
 
 	private void removeCards(Player currentDeal) {
