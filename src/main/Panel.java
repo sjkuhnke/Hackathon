@@ -85,11 +85,14 @@ public class Panel extends JPanel {
 			current = current.next;
 		}
 		
-		Player dealer = current; // Make blind
+		Player dealer = current;
+		Player currentDeal = dealer.next;
 		while (dealer.getCard2().id == -1) {
-			Player currentDeal = dealer.next;
-			if (currentDeal.getCard1().id == -1) currentDeal.setCard1(dealCard());
-			if (currentDeal.getCard2().id == -1) currentDeal.setCard2(dealCard());
+			if (currentDeal.getCard1().id == -1) {
+				currentDeal.setCard1(dealCard());
+			} else if (currentDeal.getCard2().id == -1) {
+				currentDeal.setCard2(dealCard());
+			}
 			currentDeal = currentDeal.next;
 		}
 		updateCards();
@@ -112,14 +115,12 @@ public class Panel extends JPanel {
 		communityPanel.setOpaque(false);
 		add(communityPanel);
 		
-		ArrayList<Card> yourCards = new ArrayList<>();
-		for (Card card : community) {
-			yourCards.add(card);
-		}
-		yourCards.add(p.getCard1());
-		yourCards.add(p.getCard2());
+		Player currentReveal = dealer.next;
+		do {
+			System.out.println(getBestHand(getYourCards(currentReveal)));
+			currentReveal = currentReveal.next;
+		} while (currentReveal != dealer.next);
 		
-		System.out.println(getBestHand(yourCards));
 		
 		addMouseListener(new MouseAdapter() {
             @Override
@@ -139,6 +140,18 @@ public class Panel extends JPanel {
 //		}
 	}
 	
+	private ArrayList<Card> getYourCards(Player current) {
+		ArrayList<Card> yourCards = new ArrayList<>();
+		for (Card card : community) {
+			yourCards.add(card);
+		}
+		
+		yourCards.add(current.getCard1());
+		yourCards.add(current.getCard2());
+		
+		return yourCards;
+	}
+
 	private void updateCards() {
 		card1.setIcon(new ImageIcon(p.getCard1().icon));
 		card2.setIcon(new ImageIcon(p.getCard2().icon));
