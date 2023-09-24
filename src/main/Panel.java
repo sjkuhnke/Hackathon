@@ -7,8 +7,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -162,7 +160,7 @@ public class Panel extends JPanel {
 		// Initializes console area and sets System.out to it
 		JTextArea console = new JTextArea();
 		console.setEditable(false);
-		console.setFont(new Font(console.getFont().getName(), Font.BOLD, 16));
+		console.setFont(new Font(console.getFont().getName(), Font.BOLD, 20));
 		PrintStream printStream = new PrintStream(new CustomOutputStream(console));
 		System.setOut(printStream);
 		
@@ -245,25 +243,6 @@ public class Panel extends JPanel {
 		// Deals to all players (put in method) TODO
 		dealCards(true);
 		add(communityPanel);
-		
-		revealAll(dealer);
-		
-		addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                // Get the coordinates of the mouse click
-                int x = e.getX();
-                int y = e.getY();
-                
-                // Print the coordinates
-                System.out.println("Mouse Clicked at: X=" + x + ", Y=" + y);
-            }
-        });
-//		Player test = p;
-//		while(test.next != null) {
-//			System.out.println(test.getName());
-//			test = test.next;
-//		}
 	}
 	
 	private void dealCards(boolean init) {
@@ -283,6 +262,7 @@ public class Panel extends JPanel {
 			}
 			currentDeal = currentDeal.next();
 		}
+		System.out.println("\nThe hand has started and everyone put in $5.\n");
 		updateCards();
 		updatePot();
 		updateWallets(dealer);
@@ -660,14 +640,6 @@ public class Panel extends JPanel {
 			default:
 				return "High Card";
 			}
-		}
-	public void revealAll(Player dealer){
-
-		Player currentReveal = dealer.next();
-		do {
-			//System.out.println(getBestHand(getYourCards(currentReveal)) + "\n");
-			currentReveal = currentReveal.next();
-		} while (currentReveal != dealer.next());
 	}
 	
 	public void reveal(Player current){

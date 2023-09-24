@@ -75,7 +75,7 @@ public class Player {
 	}
 
 	public Player fold(Panel panel) {
-		System.out.println(this.getName() + " folded!");
+		System.out.println(this.getName() + " folded!\n");
 		this.in = false;
 		panel.playersIn--;
 		if (panel.underGun == this) {
